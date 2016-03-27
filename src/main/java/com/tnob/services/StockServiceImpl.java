@@ -34,8 +34,11 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public void deleteStockSymbol(StockRecord stockRecord) {
-
+    public void deleteStockRecord(String symbol) {
+        StockRecord recordToBeDeleted = stockRepository.findBySymbol(symbol);
+        if (recordToBeDeleted != null) {
+            stockRepository.delete(recordToBeDeleted);
+        }
     }
 
     @Override

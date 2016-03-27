@@ -77,4 +77,37 @@ public class StockServiceTest {
         Assert.assertEquals(retrievedRecord.getSymbol(), "dummyOne");
 
     }
+
+    @Test
+    public void testDeleteStockRecord() {
+
+        StockRecord dummyStockRecordOne = new StockRecord("dummyOne");
+        StockRecord dummyStockRecordTwo = new StockRecord("dummyTwo");
+
+        List<StockRecord> dummyStockRecords = new ArrayList<StockRecord>();
+        dummyStockRecords.add(dummyStockRecordOne);
+        dummyStockRecords.add(dummyStockRecordTwo);
+
+        Mockito.when(mockStockRepository.findBySymbol("dummyOne")).thenReturn(dummyStockRecordOne);
+
+        stockService.deleteStockRecord("dummyOne");
+
+        /*check if stockservice uses the repository to find and then delete a stock record
+          by calling the correct methods
+        */
+        Mockito.verify(mockStockRepository).findBySymbol("dummyOne");
+        Mockito.verify(mockStockRepository).delete(dummyStockRecordOne);
+
+        Mockito.when(mockStockRepository.findBySymbol("dummyThree")).thenReturn(null);
+
+        stockService.deleteStockRecord("dummyThree");
+
+        StockRecord nullRecord = null;
+
+        Mockito.verify(mockStockRepository).findBySymbol("dummyThree");
+        Mockito.verify(mockStockRepository, Mockito.times(0)).delete(nullRecord);
+
+
+
+    }
 }

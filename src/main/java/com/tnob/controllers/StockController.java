@@ -6,6 +6,7 @@ import com.tnob.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
@@ -25,13 +26,12 @@ public class StockController {
         this.stockService = stockService;
     }
 
-    @RequestMapping("/stocks")
+    @RequestMapping(value = "/stocks", method = RequestMethod.GET)
     public Collection<StockRecord> getStock() {
-
         return stockService.listAllSymbols();
     }
 
-    @RequestMapping("/stockhistoryrecords/{symbol}")
+    @RequestMapping(value = "/stockhistoryrecords/{symbol}", method = RequestMethod.GET)
     public List<StockPriceHistoryRecord> getStockPriceRecordHistory(@PathVariable String symbol) {
 
         StockRecord stockRecord = stockService.findStockRecord(symbol);
@@ -39,4 +39,10 @@ public class StockController {
         return stockRecord.getPriceHistoryRecords();
 
     }
+
+    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.DELETE)
+    public void deleteStockRecord(@PathVariable String symbol) {
+        stockService.deleteStockRecord(symbol);
+    }
+
 }

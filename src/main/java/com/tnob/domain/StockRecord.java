@@ -28,7 +28,7 @@ public class StockRecord {
     @Column(length = 5, unique = true)
     private String symbol;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockRecord")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockRecord", orphanRemoval = true)
     @JsonManagedReference
     private List<StockPriceHistoryRecord> priceHistoryRecords = new ArrayList<>(0);
 

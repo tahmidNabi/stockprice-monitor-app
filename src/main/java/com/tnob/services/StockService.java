@@ -11,7 +11,7 @@ public interface StockService {
 
     public void addNewStockSymbol(StockRecord stockRecord);
 
-    public void deleteStockSymbol(StockRecord stockRecord);
+    public void deleteStockRecord(String symbol);
 
     public StockRecord findStockRecord(String symbol);
 
