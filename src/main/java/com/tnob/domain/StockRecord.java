@@ -1,5 +1,7 @@
 package com.tnob.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,6 +29,7 @@ public class StockRecord {
     private String symbol;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockRecord")
+    @JsonManagedReference
     private List<StockPriceHistoryRecord> priceHistoryRecords = new ArrayList<>(0);
 
 

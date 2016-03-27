@@ -13,6 +13,8 @@ public interface StockService {
 
     public void deleteStockSymbol(StockRecord stockRecord);
 
+    public StockRecord findStockRecord(String symbol);
+
     public Collection<StockRecord> listAllSymbols();
 
 

@@ -39,6 +39,11 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    public StockRecord findStockRecord(String symbol) {
+        return stockRepository.findBySymbol(symbol);
+    }
+
+    @Override
     public Collection<StockRecord> listAllSymbols() {
         Iterable<StockRecord> stocks = stockRepository.findAll();
         List<StockRecord> stockRecordList = new ArrayList<StockRecord>();

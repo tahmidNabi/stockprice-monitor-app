@@ -9,4 +9,5 @@ import org.springframework.data.repository.CrudRepository;
 
 
 public interface StockRepository extends CrudRepository<StockRecord, Long> {
+    StockRecord findBySymbol(String symbol);
 }

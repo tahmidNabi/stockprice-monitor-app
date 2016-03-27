@@ -59,4 +59,22 @@ public class StockServiceTest {
         Assert.assertEquals(2, stockRecords.size());
 
     }
+
+    @Test
+    public void testfindStockRecord() {
+        StockRecord dummyStockRecordOne = new StockRecord("dummyOne");
+        StockRecord dummyStockRecordTwo = new StockRecord("dummyTwo");
+
+        List<StockRecord> dummyStockRecords = new ArrayList<StockRecord>();
+        dummyStockRecords.add(dummyStockRecordOne);
+        dummyStockRecords.add(dummyStockRecordTwo);
+
+        Mockito.when(mockStockRepository.findBySymbol("dummyOne")).thenReturn(dummyStockRecordOne);
+
+        StockRecord retrievedRecord = stockService.findStockRecord("dummyOne");
+
+        Assert.assertNotNull(retrievedRecord);
+        Assert.assertEquals(retrievedRecord.getSymbol(), "dummyOne");
+
+    }
 }
