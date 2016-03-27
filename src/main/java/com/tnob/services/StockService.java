@@ -1,20 +1,19 @@
 package com.tnob.services;
 
-import com.tnob.domain.Stock;
+import com.tnob.domain.StockRecord;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by tahmid on 3/26/16.
  */
 public interface StockService {
 
-    public void addNewStockSymbol(Stock stock);
+    public void addNewStockSymbol(StockRecord stockRecord);
 
-    public void deleteStockSymbol(Stock stock);
+    public void deleteStockSymbol(StockRecord stockRecord);
 
-    public Collection<Stock> listAllSymbols();
+    public Collection<StockRecord> listAllSymbols();
 
 
 }

@@ -1,6 +1,6 @@
 package com.tnob.services;
 
-import com.tnob.domain.Stock;
+import com.tnob.domain.StockRecord;
 import com.tnob.repositories.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,22 +29,22 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public void addNewStockSymbol(Stock stock) {
-        stockRepository.save(stock);
+    public void addNewStockSymbol(StockRecord stockRecord) {
+        stockRepository.save(stockRecord);
     }
 
     @Override
-    public void deleteStockSymbol(Stock stock) {
+    public void deleteStockSymbol(StockRecord stockRecord) {
 
     }
 
     @Override
-    public Collection<Stock> listAllSymbols() {
-        Iterable<Stock> stocks = stockRepository.findAll();
-        List<Stock> stockList = new ArrayList<Stock>();
+    public Collection<StockRecord> listAllSymbols() {
+        Iterable<StockRecord> stocks = stockRepository.findAll();
+        List<StockRecord> stockRecordList = new ArrayList<StockRecord>();
 
-        stocks.forEach(stockList::add);
+        stocks.forEach(stockRecordList::add);
 
-        return stockList;
+        return stockRecordList;
     }
 }

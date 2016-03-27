@@ -1,7 +1,6 @@
 package com.tnob.controllers;
 
-import com.tnob.domain.Stock;
-import com.tnob.repositories.StockRepository;
+import com.tnob.domain.StockRecord;
 import com.tnob.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +23,7 @@ public class StockController {
     }
 
     @RequestMapping("/stocks")
-    public Collection<Stock> getStock() {
+    public Collection<StockRecord> getStock() {
 
         return stockService.listAllSymbols();
     }

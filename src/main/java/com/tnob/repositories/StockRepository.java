@@ -1,14 +1,12 @@
 package com.tnob.repositories;
 
-import com.tnob.domain.Stock;
+import com.tnob.domain.StockRecord;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.Collection;
 
 /**
  * Created by tahmid on 3/26/16.
  */
 
 
-public interface StockRepository extends CrudRepository<Stock, Long> {
+public interface StockRepository extends CrudRepository<StockRecord, Long> {
 }

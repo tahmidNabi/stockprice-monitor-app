@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
-public class Stock {
+public class StockRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,10 +22,10 @@ public class Stock {
     private String symbol;
     private int price;
 
-    public Stock() {
+    public StockRecord() {
     }
 
-    public Stock(String symbol, int price) {
+    public StockRecord(String symbol, int price) {
         this.symbol = symbol;
         this.price = price;
     }
@@ -40,7 +40,7 @@ public class Stock {
 
     @Override
     public String toString() {
-        return "Stock{" +
+        return "StockRecord{" +
                 "symbol='" + symbol + '\'' +
                 ", price=" + price +
                 '}';

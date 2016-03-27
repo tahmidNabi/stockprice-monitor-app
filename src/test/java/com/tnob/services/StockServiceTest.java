@@ -1,7 +1,7 @@
 package com.tnob.services;
 
 import com.tnob.Application;
-import com.tnob.domain.Stock;
+import com.tnob.domain.StockRecord;
 import com.tnob.repositories.StockRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,20 +43,20 @@ public class StockServiceTest {
     @Test
     public void testListAllSymbols() {
 
-        Stock dummyStockOne = new Stock("dummyOne", 10);
-        Stock dummyStockTwo = new Stock("dummyTwo", 20);
+        StockRecord dummyStockRecordOne = new StockRecord("dummyOne", 10);
+        StockRecord dummyStockRecordTwo = new StockRecord("dummyTwo", 20);
 
-        List<Stock> dummyStocks = new ArrayList<Stock>();
-        dummyStocks.add(dummyStockOne);
-        dummyStocks.add(dummyStockTwo);
+        List<StockRecord> dummyStockRecords = new ArrayList<StockRecord>();
+        dummyStockRecords.add(dummyStockRecordOne);
+        dummyStockRecords.add(dummyStockRecordTwo);
 
-        Mockito.when(mockStockRepository.findAll()).thenReturn(dummyStocks);
+        Mockito.when(mockStockRepository.findAll()).thenReturn(dummyStockRecords);
 
 
-        Collection<Stock> stocks = stockService.listAllSymbols();
+        Collection<StockRecord> stockRecords = stockService.listAllSymbols();
 
-        Assert.assertNotNull(stocks);
-        Assert.assertEquals(2, stocks.size());
+        Assert.assertNotNull(stockRecords);
+        Assert.assertEquals(2, stockRecords.size());
 
     }
 }
