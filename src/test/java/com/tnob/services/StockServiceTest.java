@@ -43,8 +43,8 @@ public class StockServiceTest {
     @Test
     public void testListAllSymbols() {
 
-        StockRecord dummyStockRecordOne = new StockRecord("dummyOne", 10);
-        StockRecord dummyStockRecordTwo = new StockRecord("dummyTwo", 20);
+        StockRecord dummyStockRecordOne = new StockRecord("dummyOne");
+        StockRecord dummyStockRecordTwo = new StockRecord("dummyTwo");
 
         List<StockRecord> dummyStockRecords = new ArrayList<StockRecord>();
         dummyStockRecords.add(dummyStockRecordOne);
