@@ -31,6 +31,11 @@ public class StockController {
         return stockService.listAllSymbols();
     }
 
+    @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.POST)
+    public void addNewStockRecord(@PathVariable String symbol) {
+        stockService.addNewStockRecord(symbol);
+    }
+
     @RequestMapping(value = "/stockhistoryrecords/{symbol}", method = RequestMethod.GET)
     public List<StockPriceHistoryRecord> getStockPriceRecordHistory(@PathVariable String symbol) {
 

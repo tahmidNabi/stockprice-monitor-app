@@ -29,7 +29,8 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public void addNewStockSymbol(StockRecord stockRecord) {
+    public void addNewStockRecord(String symbol) {
+        StockRecord stockRecord = new StockRecord(symbol);
         stockRepository.save(stockRecord);
     }
 

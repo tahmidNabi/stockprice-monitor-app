@@ -9,7 +9,7 @@ import java.util.Collection;
  */
 public interface StockService {
 
-    public void addNewStockSymbol(StockRecord stockRecord);
+    public void addNewStockRecord(String symbol);
 
     public void deleteStockRecord(String symbol);
 
