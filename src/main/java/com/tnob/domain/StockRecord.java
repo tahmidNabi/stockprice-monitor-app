@@ -1,6 +1,10 @@
 package com.tnob.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by tahmid on 3/26/16.
@@ -19,30 +23,28 @@ public class StockRecord {
     @Version
     private Integer version;
 
+    @Column(length = 5, unique = true)
     private String symbol;
-    private int price;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockRecord")
+    private List<StockPriceHistoryRecord> priceHistoryRecords = new ArrayList<>(0);
+
 
     public StockRecord() {
     }
 
-    public StockRecord(String symbol, int price) {
+    public StockRecord(String symbol) {
         this.symbol = symbol;
-        this.price = price;
     }
 
     public String getSymbol() {
         return symbol;
     }
 
-    public int getPrice() {
-        return price;
+
+    public List<StockPriceHistoryRecord> getPriceHistoryRecords() {
+        return priceHistoryRecords;
     }
 
-    @Override
-    public String toString() {
-        return "StockRecord{" +
-                "symbol='" + symbol + '\'' +
-                ", price=" + price +
-                '}';
-    }
+
 }
