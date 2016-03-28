@@ -6,6 +6,7 @@ import com.tnob.domain.StockRecord;
 import com.tnob.repositories.StockPriceRecordRepository;
 import com.tnob.repositories.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class YahooFinanceStockPriceRecordFetchServiceImpl implements StockPriceR
 
     @Override
     @Transactional
-    @Scheduled(cron = "0 0/30 * * * ?")
+    @Scheduled(cron = "${stock.monitor.fetch.interval}")
     public void fetchAndUpdateStockPriceRecord() throws Exception{
 
         System.out.println("Fetching from Yahoo API at:" + new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
