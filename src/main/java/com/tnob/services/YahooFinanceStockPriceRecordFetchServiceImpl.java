@@ -1,15 +1,14 @@
 package com.tnob.services;
 
-import com.google.common.collect.Iterables;
 import com.tnob.domain.StockPriceHistoryRecord;
 import com.tnob.domain.StockRecord;
 import com.tnob.repositories.StockPriceRecordRepository;
 import com.tnob.repositories.StockRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
@@ -17,8 +16,6 @@ import yahoofinance.YahooFinance;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +28,8 @@ public class YahooFinanceStockPriceRecordFetchServiceImpl implements StockPriceR
     private StockRepository stockRepository;
     private StockPriceRecordRepository stockPriceRecordRepository;
     private StockRecordUtilService stockRecordUtilService;
+
+    private static final Logger log = LoggerFactory.getLogger(YahooFinanceStockPriceRecordFetchServiceImpl.class);
 
     @Autowired
     public void setStockRepository(StockRepository stockRepository) {
@@ -50,13 +49,13 @@ public class YahooFinanceStockPriceRecordFetchServiceImpl implements StockPriceR
     @Override
     @Transactional
     @Scheduled(cron = "${stock.monitor.fetch.interval}")
-    public void fetchAndUpdateStockPriceRecord() throws Exception{
+    public void fetchAndUpdateStockPriceRecord() throws Exception {
 
-        System.out.println("Fetching from Yahoo API at:" + new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
+        log.info("Fetching from Yahoo API at: {}", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
 
-        Iterable <StockRecord> stockRecords = stockRepository.findAll();
-        String [] listOfSymbols = stockRecordUtilService.getListOfStockSymbols(stockRecords);
-        Map <String, StockRecord> stockRecordSymbolMap = stockRecordUtilService.getStockRecordSymbolMap(stockRecords);
+        Iterable<StockRecord> stockRecords = stockRepository.findAll();
+        String[] listOfSymbols = stockRecordUtilService.getListOfStockSymbols(stockRecords);
+        Map<String, StockRecord> stockRecordSymbolMap = stockRecordUtilService.getStockRecordSymbolMap(stockRecords);
 
         Map<String, Stock> yahooFinanceStockRecords = YahooFinance.get(listOfSymbols);
 
@@ -65,7 +64,7 @@ public class YahooFinanceStockPriceRecordFetchServiceImpl implements StockPriceR
             BigDecimal lastTradePrice = yahooFinanceStockRecord.getQuote(true).getPrice();
             Date retrievalTime = new Date();
             StockRecord owningStockRecord = stockRecordSymbolMap.get(symbol);
-
+            log.info("Adding new Stock price record for {}", symbol);
             StockPriceHistoryRecord stockPriceHistoryRecord = new StockPriceHistoryRecord(lastTradePrice,
                     retrievalTime, owningStockRecord);
 

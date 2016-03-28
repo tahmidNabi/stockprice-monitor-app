@@ -2,8 +2,11 @@ package com.tnob.services;
 
 import com.tnob.domain.StockRecord;
 import com.tnob.repositories.StockRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,10 +21,7 @@ public class StockServiceImpl implements StockService {
 
     private StockRepository stockRepository;
 
-    /*@Autowired
-    public void setStockRepository(StockRepository stockRepository) {
-        this.stockRepository = stockRepository;
-    }*/
+    private static final Logger log = LoggerFactory.getLogger(StockServiceImpl.class);
 
     @Autowired
     public StockServiceImpl(StockRepository stockRepository) {
@@ -29,13 +29,17 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    @Transactional
     public void addNewStockRecord(String symbol) {
+        log.info("Adding stock record {}", symbol);
         StockRecord stockRecord = new StockRecord(symbol);
         stockRepository.save(stockRecord);
     }
 
     @Override
+    @Transactional
     public void deleteStockRecord(String symbol) {
+        log.info("Deleting stock record {}", symbol);
         StockRecord recordToBeDeleted = stockRepository.findBySymbol(symbol);
         if (recordToBeDeleted != null) {
             stockRepository.delete(recordToBeDeleted);
