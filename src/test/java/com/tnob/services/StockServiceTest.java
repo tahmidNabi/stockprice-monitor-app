@@ -1,17 +1,13 @@
 package com.tnob.services;
 
-import com.tnob.Application;
 import com.tnob.domain.StockRecord;
 import com.tnob.repositories.StockRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,8 +17,6 @@ import java.util.List;
  * Created by tahmid on 3/27/16.
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
 public class StockServiceTest {
 
     @Mock
@@ -106,7 +100,6 @@ public class StockServiceTest {
 
         Mockito.verify(mockStockRepository).findBySymbol("dummyThree");
         Mockito.verify(mockStockRepository, Mockito.times(0)).delete(nullRecord);
-
 
 
     }
