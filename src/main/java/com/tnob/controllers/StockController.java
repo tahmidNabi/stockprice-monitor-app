@@ -2,6 +2,7 @@ package com.tnob.controllers;
 
 import com.tnob.domain.StockPriceHistoryRecord;
 import com.tnob.domain.StockRecord;
+import com.tnob.exceptions.StockRecordNotFoundException;
 import com.tnob.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,10 @@ public class StockController {
     public List<StockPriceHistoryRecord> getStockPriceRecordHistory(@PathVariable String symbol) {
 
         StockRecord stockRecord = stockService.findStockRecord(symbol);
+
+        if (stockRecord == null) {
+            throw new StockRecordNotFoundException(symbol);
+        }
 
         return stockRecord.getPriceHistoryRecords();
 

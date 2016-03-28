@@ -36,6 +36,8 @@ import static com.jayway.restassured.RestAssured.when;
 @IntegrationTest("server.port:0")
 public class StockControllerIT {
 
+    public static final double dummyPriceOne = 10.0;
+    public static final double dummyPriceTwo = 15.0;
     @Autowired
     StockRepository stockRepository;
 
@@ -50,14 +52,15 @@ public class StockControllerIT {
 
     final String dummySymbolOne = "ONE";
     final String dummySymbolTwo = "TWO";
+    final String nonExistentSymbol = "Blah";
 
     @Before
     public void setUp() {
         dummyOne = new StockRecord(dummySymbolOne);
         dummyTwo = new StockRecord(dummySymbolTwo);
 
-        StockPriceHistoryRecord dummyOneHistoryOne = new StockPriceHistoryRecord(new BigDecimal(10), new Date(), dummyOne);
-        StockPriceHistoryRecord dummyOneHistoryTwo = new StockPriceHistoryRecord(new BigDecimal(15), new Date(), dummyOne);
+        StockPriceHistoryRecord dummyOneHistoryOne = new StockPriceHistoryRecord(new BigDecimal(dummyPriceOne), new Date(), dummyOne);
+        StockPriceHistoryRecord dummyOneHistoryTwo = new StockPriceHistoryRecord(new BigDecimal(dummyPriceTwo), new Date(), dummyOne);
 
         //stockPriceRecordRepository.save(dummyOneHistoryOne);
         //stockPriceRecordRepository.save(dummyOneHistoryTwo);
@@ -81,6 +84,21 @@ public class StockControllerIT {
                 then().
                 statusCode(HttpStatus.SC_OK).
                 body("symbol", Matchers.hasItems(dummySymbolOne, dummySymbolTwo));
+    }
+
+    @Test
+    public void testGetStockPriceRecordHistory() {
+        when().
+                get("/stockhistoryrecords/" + dummySymbolOne).
+                then().
+                statusCode(HttpStatus.SC_OK).
+                body("lastTradePrice", Matchers.hasSize(2));
+
+        when().
+                get("/stockhistoryrecords/" + nonExistentSymbol).
+                then().
+                statusCode(HttpStatus.SC_NOT_FOUND);
+
     }
 
     @After
