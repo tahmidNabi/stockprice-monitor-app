@@ -27,7 +27,7 @@ public class StockController {
     }
 
     @RequestMapping(value = "/stocks", method = RequestMethod.GET)
-    public Collection<StockRecord> getStock() {
+    public Collection<StockRecord> getAllStockRecords() {
         return stockService.listAllSymbols();
     }
 
