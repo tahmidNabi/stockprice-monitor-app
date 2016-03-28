@@ -19,13 +19,10 @@ public class StockRecord {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
-
-
     @Version
     private Integer version;
 
-    @Column(length = 5, unique = true)
+    @Column(length = 10, unique = true)
     private String symbol;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "stockRecord", orphanRemoval = true)
