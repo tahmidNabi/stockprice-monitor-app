@@ -1,5 +1,6 @@
 .*
 !.gitignore
+*.log
 !.travis.yml
 *.iml
 target
