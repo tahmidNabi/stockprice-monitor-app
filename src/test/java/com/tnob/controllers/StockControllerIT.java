@@ -52,6 +52,7 @@ public class StockControllerIT {
 
     final String dummySymbolOne = "ONE";
     final String dummySymbolTwo = "TWO";
+    final String dummySymbolThree = "THREE";
     final String nonExistentSymbol = "Blah";
 
     @Before
@@ -99,6 +100,14 @@ public class StockControllerIT {
                 then().
                 statusCode(HttpStatus.SC_NOT_FOUND);
 
+    }
+
+    @Test
+    public void testaddNewStockRecord() {
+        when().
+                post("/stocks/" + dummySymbolThree).
+                then().
+                statusCode(HttpStatus.SC_CREATED);
     }
 
     @After

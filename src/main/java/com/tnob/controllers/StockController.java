@@ -5,6 +5,8 @@ import com.tnob.domain.StockRecord;
 import com.tnob.exceptions.StockRecordNotFoundException;
 import com.tnob.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,8 +35,9 @@ public class StockController {
     }
 
     @RequestMapping(value = "/stocks/{symbol}", method = RequestMethod.POST)
-    public void addNewStockRecord(@PathVariable String symbol) {
-        stockService.addNewStockRecord(symbol);
+    public ResponseEntity<StockRecord> addNewStockRecord(@PathVariable String symbol) {
+        StockRecord newStockRecord = stockService.addNewStockRecord(symbol);
+        return new ResponseEntity<>(newStockRecord, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/stockhistoryrecords/{symbol}", method = RequestMethod.GET)

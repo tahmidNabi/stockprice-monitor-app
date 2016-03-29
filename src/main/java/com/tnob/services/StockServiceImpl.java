@@ -30,10 +30,11 @@ public class StockServiceImpl implements StockService {
 
     @Override
     @Transactional
-    public void addNewStockRecord(String symbol) {
+    public StockRecord addNewStockRecord(String symbol) {
         log.info("Adding stock record {}", symbol);
         StockRecord stockRecord = new StockRecord(symbol);
         stockRepository.save(stockRecord);
+        return stockRecord;
     }
 
     @Override
