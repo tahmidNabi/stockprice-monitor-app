@@ -65,7 +65,15 @@ Integration tests can be run by executing the command **mvn integration-test –
       ~/ $ java –jar stock-price-monitor.jar
     </code>
 
+**REST API calls**
 
+|         | GET(Read)           | POST(Create)  |DELETE(Delete)|
+| ------------- |-------------| -----|-----|
+| /stocks     | Lists all Stock symbols in the database | | |
+| /stocks/GOOGL    |      |  Create a record in the database for a stock having the symbol GOOGL. |Delete the record in the data for a stock having the symbol GOOGL. Also delete corresponding price record history for GOOGL as well.|
+| /stockhistoryrecords/GOOGL| Return all price records associated with GOOGL in the database | | |
 
+**Additional details**
+Detailed discussion about the project architecture, database design and design patterns used can be found in the PDF report file.
 
 
